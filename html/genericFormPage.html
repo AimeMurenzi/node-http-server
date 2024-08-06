@@ -1,0 +1,113 @@
+<html lang="en" style="
+    height: 100%;
+">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body style="
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+">
+    <h1 id="formTitle">REGISTER PAGE</h1> 
+    <section class="container">
+        <form id="form" action="/register" method="POST" style="
+        display: flex;
+        flex-direction: column;
+        width: 200px;">
+            <label for="username">username</label>
+            <input type="text" id="username">
+            <label for="password">password</label>
+            <input type="password" id="password">
+            <input type="submit" value="submit">
+        </form>
+        <a href="/">
+            <p style="font-size: medium;">back to home page</p>
+        </a>
+
+    </section>
+    <script>
+        const form = document.getElementById("form");
+        const formTitle = document.getElementById("formTitle");
+        function genInput(type, id, labelName) {
+            if (!!!labelName) {
+                const input = document.createElement("input");
+                input.type = type;
+                input.value = id;
+                return [input]
+            }
+            const input = document.createElement("input");
+            input.type = type;
+            input.id = id;
+            input.name = id;
+            const label = document.createElement("label");
+            label.htmlFor = id;
+            label.textContent = labelName;
+            return [label, input];
+        }
+        function addToForm(input) {
+            [label, input] = input;
+            if (!!!input)//example submit
+                form.appendChild(label);
+            else {
+                form.appendChild(label);
+                form.appendChild(input);
+            }
+        }
+        function genUNPWFor() {
+            form.innerHTML = ""
+            //form.appendChild(formTitle);
+            addToForm(genInput("text", "username", "username"));
+            addToForm(genInput("password", "password", "password"));
+            addToForm(genInput("submit", "submit"));
+        }
+        const pathname = window.location.pathname.split(".")[0];
+        console.log(pathname);
+        switch (pathname) {
+            case "/register":
+                genUNPWFor();
+                formTitle.textContent = "Register";
+                form.action = "/register";
+                break;
+            case "/login":
+                genUNPWFor();
+                formTitle.textContent = "Login";
+                form.action = "/login";
+                break;
+            default:
+                break;
+        }
+        // form.addEventListener('submit', function (event) {
+        //     event.preventDefault();
+        //     let form = document.getElementById("form");
+        //     const formData = new FormData(form);
+        //     fetch('/login', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.text())
+        //         .then(data => {
+        //             console.log(data); // Log the response from the server
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //         });
+        // });
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
